@@ -6,7 +6,7 @@
 /*   By: nrochard <nrochard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 10:26:26 by nrochard          #+#    #+#             */
-/*   Updated: 2019/10/23 18:46:59 by nrochard         ###   ########.fr       */
+/*   Updated: 2019/10/24 19:11:00 by nrochard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,43 +16,49 @@ int	get_next_line(int fd, char **line)
 {
 	int         ret;
 	int			i;
-	static char *str = "\0";
-	char		buff[BUFF_SIZE + 1];
+    int         j;
+	static char *str;
+	char		stock[BUFFER_SIZE + 1];
 
 	i = 0;
-	if (fd == -1 || line == NULL)
-		return (-1);
-    if(!(str = malloc(sizeof(char) * (BUFF_SIZE + 1))))
+    j = 0;
+    if(!(str = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
         return (-1);
-	while ((ret = read(fd, buff, BUFF_SIZE + 1)) > 0)
+	if ((ret = read(fd, stock, BUFFER_SIZE)) > 0)
 	{
-		buff[ret] = '\0';
-		str = ft_strjoin(str, buff);
+		stock[ret] = '\0';
+        printf("ret = %d\n", ret);
+		str = ft_strjoin(str, stock);
 	}
-	while (str[i] != '\0' && str[i] != '\n')
+    printf("str = %s\n", str);
+    printf("stock = %s\n", stock);
+
+    while (str[i] != '\n' && str[i] != '\0')
+    	i++;
+	
+    if (i == 0)
+		(*line) = ft_strdup("");
+	else
 	{
-		if (str[i] == '\n')
-			*line = ft_substr(str, 0, i);
-		i++;
+		*line = ft_substr(str, 0, i);
+		str = &str[i + 1];
 	}
 	return (1);
 }
 
-int main(int ac, char **av) 
+int			main(int ac, char **av)
 {
-        int fd = 0;
-
-        if (ac >= 2) 
-		{
-                fd = open(av[1], O_RDONLY);
-        }
-        int ret = 0;
-        char *line = NULL;
-        while ((ret = get_next_line(fd, &line)) > 0) 
-		{
-                printf("{%d}%s\n", ret, line);
-         get_next_line(0, &line);
-                printf("{%d}%s\n", ret, line);
-        }
-
+	int		fd;
+	char	*line;
+    (void)ac;
+    
+	line = NULL;
+	fd = open(av[1], O_RDONLY);
+    get_next_line(fd, &line);
+    printf("resulat = [%s]\n", line);
+	// while ((ret = (get_next_line(fd, &line))) > 0)
+	// {
+	// 	printf("%s\n", line);
+	// }
+	close(fd);
 }

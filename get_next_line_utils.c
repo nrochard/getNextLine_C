@@ -6,7 +6,7 @@
 /*   By: nrochard <nrochard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 10:26:21 by nrochard          #+#    #+#             */
-/*   Updated: 2019/10/23 18:54:48 by nrochard         ###   ########.fr       */
+/*   Updated: 2019/10/24 18:43:42 by nrochard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,43 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	new[i] = '\0';
 	return (new);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	int a;
+
+	a = 0;
+	while (str[a] != '\0')
+		a++;
+	return (a);
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	int i;
+
+	i = 0;
+	if (s == NULL)
+		return ;
+	while (s[i] != '\0')
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
+	write(fd, "\n", 1);
+}
+
+char	*ft_strcpy(char *dest, char *src)
+{
+	int i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
