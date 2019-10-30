@@ -6,7 +6,7 @@
 /*   By: nrochard <nrochard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 10:26:26 by nrochard          #+#    #+#             */
-/*   Updated: 2019/10/30 12:00:33 by nrochard         ###   ########.fr       */
+/*   Updated: 2019/10/30 12:43:32 by nrochard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,10 @@ char    *read_fd(char *str, int fd)
 
 char	*fill_line(char *str, char **line, int i)
 {
-	while (str[i] != '\0')
-		{
-			if (str[i] == '\n')
-			{
-				if (i == 0)
-					(*line) = ft_strdup("");
-				else
-				{
-					*line = ft_substr(str, 0, i);
-					str = &str[i + 1];
-					break;
-				}
-			}
-		  i++;
-		}
+	while (str[i] != '\0' && str[i] != '\n')
+		i++;
+	*line = ft_substr(str, 0, i);
+	str = &str[i + 1];
 	return (str);
 }
 
@@ -63,20 +52,21 @@ int	get_next_line(int fd, char **line)
 	str = read_fd(str, fd);
 	printf("STR READ = [%s]\n", str);
 
-	if (ft_strchr(str, '\n') != NULL)
+	if (ft_strchr(str, '\n') != NULL || str[i])
 	{
+		printf("ici\n");
 		str = fill_line(str, line, i);
 		return (1); 
 	}
-	while (ft_strchr(str, '\n') == NULL)
-	{
-		str = read_fd(str, fd);
-		if (ft_strchr(str, '\n') != NULL)
-		{
-			*line = fill_line(str, line, i);
-			return (1); 
-		}
-	}
+	// while (ft_strchr(str, '\n') == NULL)
+	// {
+	// 	str = read_fd(str, fd);
+	// 	if (ft_strchr(str, '\n') != NULL)
+	// 	{
+	// 		*line = fill_line(str, line, i);
+	// 		return (1); 
+	// 	}
+	// }
 	return (0);
 }
 int		main(int argc, char **argv)
