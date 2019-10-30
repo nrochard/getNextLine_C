@@ -6,7 +6,7 @@
 /*   By: nrochard <nrochard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 10:26:26 by nrochard          #+#    #+#             */
-/*   Updated: 2019/10/29 11:24:01 by nrochard         ###   ########.fr       */
+/*   Updated: 2019/10/30 12:00:33 by nrochard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char    *read_fd(char *str, int fd)
 
 char	*fill_line(char *str, char **line, int i)
 {
-	while (str[i++] != '\0')
+	while (str[i] != '\0')
 		{
 			if (str[i] == '\n')
 			{
@@ -39,26 +39,33 @@ char	*fill_line(char *str, char **line, int i)
 				{
 					*line = ft_substr(str, 0, i);
 					str = &str[i + 1];
+					break;
 				}
 			}
+		  i++;
 		}
-	return (*line);
+	return (str);
 }
 
 int	get_next_line(int fd, char **line)
 {
 	int			i;
 	int         j;
-	static char *str;
+	static char *str = "\0";
 
 	i = 0;
 	j = 0;
-	if(!(str = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
-		return (-1);
+
+	// if(!(str = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	// 	return (-1);
+	// if(!(tmp_str = malloc(sizeof(char) * (ft_strlen(str) + ft_strlen(tmp_str) + 1))))
+	// 	return (-1);
 	str = read_fd(str, fd);
+	printf("STR READ = [%s]\n", str);
+
 	if (ft_strchr(str, '\n') != NULL)
 	{
-		*line = fill_line(str, line, i);
+		str = fill_line(str, line, i);
 		return (1); 
 	}
 	while (ft_strchr(str, '\n') == NULL)
@@ -70,25 +77,29 @@ int	get_next_line(int fd, char **line)
 			return (1); 
 		}
 	}
-	free(str);
 	return (0);
 }
-
 int		main(int argc, char **argv)
 {
 	int		fd;
 	char	*line;
-	int		i;
 	int		ret;
-
-	i = 0;
 	(void)argc;
+	
 	fd = open((argv[1]), O_RDONLY);
-	while (i < 50)
+
+	// ret = get_next_line(fd, &line);
+	// printf("%d -> %s\n", ret, line);
+	// free(line);
+
+	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		line = (char *)malloc(sizeof(*line) * 1);
-		ret = get_next_line(fd, &line);
-		printf("|%s|\n", line);
-		i++;
+		printf("%d -> %s\n", ret, line);
+	    free(line);
 	}
-}	
+	printf("%d -> %s\n", ret, line);
+	    free(line);
+
+	close(fd);
+	return (0);
+}
