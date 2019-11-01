@@ -6,7 +6,7 @@
 /*   By: nrochard <nrochard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 10:26:21 by nrochard          #+#    #+#             */
-/*   Updated: 2019/10/29 10:40:50 by nrochard         ###   ########.fr       */
+/*   Updated: 2019/11/01 11:26:10 by nrochard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,35 +99,6 @@ size_t	ft_strlen(const char *str)
 	return (a);
 }
 
-void	ft_putendl_fd(char *s, int fd)
-{
-	int i;
-
-	i = 0;
-	if (s == NULL)
-		return ;
-	while (s[i] != '\0')
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
-	write(fd, "\n", 1);
-}
-
-char	*ft_strcpy(char *dest, char *src)
-{
-	int i;
-
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
 char	*ft_strchr(const char *s, int c)
 {
 	int		i;
@@ -144,4 +115,18 @@ char	*ft_strchr(const char *s, int c)
 	if (s2[i] == '\0' && (unsigned char)c != '\0')
 		return (NULL);
 	return (&s2[i]);
+}
+
+char	*ft_strcpy(char *dst, const char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
 }
