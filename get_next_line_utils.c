@@ -6,7 +6,7 @@
 /*   By: nrochard <nrochard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 10:26:21 by nrochard          #+#    #+#             */
-/*   Updated: 2019/11/01 11:26:10 by nrochard         ###   ########.fr       */
+/*   Updated: 2019/11/03 14:05:25 by nrochard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,18 +115,4 @@ char	*ft_strchr(const char *s, int c)
 	if (s2[i] == '\0' && (unsigned char)c != '\0')
 		return (NULL);
 	return (&s2[i]);
-}
-
-char	*ft_strcpy(char *dst, const char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
 }
