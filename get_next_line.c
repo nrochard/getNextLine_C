@@ -6,7 +6,7 @@
 /*   By: nrochard <nrochard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 10:26:26 by nrochard          #+#    #+#             */
-/*   Updated: 2019/11/03 14:14:15 by nrochard         ###   ########.fr       */
+/*   Updated: 2019/11/04 11:10:39 by nrochard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int		get_next_line(int fd, char **line)
 	while ((char_read = read(fd, stock, BUFFER_SIZE)) > 0)
 	{
 		stock[char_read] = '\0';
-		str = ft_strjoin(str, stock);
+		if (!(str = ft_strjoin(str, stock)))
+			return (-1);
 		if (ft_strchr(str, '\n'))
 		{
 			str = fill_line(str, line, i);
@@ -52,7 +53,8 @@ int		get_next_line(int fd, char **line)
 	}
 	if (str[i] == '\0')
 	{
-		*line = ft_strdup("");
+		if (!(*line = ft_strdup("")))
+			return (-1);
 		return (0);
 	}
 	return (1);
