@@ -6,7 +6,7 @@
 /*   By: nrochard <nrochard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 10:26:26 by nrochard          #+#    #+#             */
-/*   Updated: 2019/11/25 20:03:34 by nrochard         ###   ########.fr       */
+/*   Updated: 2019/11/25 20:10:13 by nrochard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*fill_line(char *str, char **line, int i)
 	return (str);
 }
 
-int     concl_gnl(char **str, int i, char **line)
+int		concl_gnl(char **str, int i, char **line)
 {
 	if (*str[i] == '\0')
 		if (!(*line = ft_strdup("")))
@@ -33,7 +33,7 @@ int     concl_gnl(char **str, int i, char **line)
 	return (0);
 }
 
-int     manage_gnl(int fd, char *stock, char **line, char **str)
+int		manage_gnl(int fd, char *stock, char **line, char **str)
 {
 	int			char_read;
 	int			i;
@@ -71,24 +71,4 @@ int		get_next_line(int fd, char **line)
 	if (str == NULL)
 		str = ft_strdup("");
 	return (manage_gnl(fd, stock, line, &str));
-}
-
-int		main(int argc, char **argv)
-{
-	int		fd;
-	char	*line;
-	int		ret;
-
-	(void)argc;
-	fd = open((argv[1]), O_RDONLY);
-	while ((ret = get_next_line(fd, &line)) > 0)
-	{
-		printf(" %d - > read = %s", ret, line);
-		free(line);
-	}
-	printf(" %d - > read = %s\n", ret, line);
-	free(line);
-	close(fd);
-	while(1);
-	return (0);
 }
