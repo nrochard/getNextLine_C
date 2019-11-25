@@ -6,7 +6,7 @@
 /*   By: nrochard <nrochard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 10:26:21 by nrochard          #+#    #+#             */
-/*   Updated: 2019/11/03 14:05:25 by nrochard         ###   ########.fr       */
+/*   Updated: 2019/11/24 21:43:46 by nrochard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s2[j] != '\0')
 		new[k++] = s2[j++];
 	new[k] = '\0';
+	free((char*)s1);
 	return (new);
 }
 
