@@ -6,7 +6,7 @@
 /*   By: nrochard <nrochard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 10:26:30 by nrochard          #+#    #+#             */
-/*   Updated: 2019/11/24 23:03:11 by nrochard         ###   ########.fr       */
+/*   Updated: 2019/11/26 21:18:06 by nrochard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *src);
 int		get_next_line(int fd, char **line);
 size_t	ft_strlen(const char *str);
-void	ft_putendl_fd(char *s, int fd);
-char	*ft_strcpy(char *dst, const char *src);
 char	*ft_strchr(const char *s, int c);
 
 #endif
